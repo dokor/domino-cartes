@@ -4,4 +4,4 @@ Checkout this project
 
 ``<yourProjectName>`` : Name of your React App
 
-``<path>`` : Path to the react-scripts-coreoz root folder on your file system
+``<path>`` : Path to the react-scripts-coreoz root folder on your file system"# domino-cartes" 
