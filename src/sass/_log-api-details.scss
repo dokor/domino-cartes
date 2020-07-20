@@ -1,0 +1,125 @@
+.log-api-details {
+  background-color: var(--background-color-get);
+
+  & > div {
+    input {
+      cursor: pointer;
+    }
+  }
+
+  .container-log {
+    width: 100%;
+    border-radius: 0.25rem;
+    padding: 0;
+
+    .container-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 1rem;
+      cursor: pointer;
+
+      .bloc {
+        border-radius: 4px;
+        padding: 0.5rem 0 0.5rem 0;
+        width: 5rem;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        .title {
+          font-size: 1rem;
+          margin-bottom: 0.5rem;
+          margin-top: 0;
+        }
+
+        .value {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          word-break: break-all;
+        }
+
+        .value--date {
+          font-weight: 500;
+        }
+
+        .value--white {
+          font-weight: 500;
+          color: white;
+          justify-content: center;
+          font-size: 1.25rem;
+        }
+      }
+
+      .bloc--url {
+        width: 35rem;
+      }
+
+      .bloc--date {
+        width: 8rem;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .bloc--POST {
+        background-color: var(--font-color-post);
+      }
+
+      .bloc--GET {
+        background-color: var(--font-color-get);
+      }
+
+      .bloc--DELETE {
+        background-color: var(--font-color-delete);
+      }
+
+      .bloc--PUT {
+        background-color: var(--font-color-put);
+      }
+
+      .bloc--error {
+        background-color: var(--font-color-error);
+      }
+
+      .bloc--ok {
+        background-color: var(--font-color-ok);
+      }
+
+      .bloc--api{
+        width: 10rem;
+      }
+
+      i {
+        padding-right: 1rem;
+        align-self: center;
+      }
+    }
+
+    .empty-container {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      background: var(--body-bg-color);
+      padding: 0.5rem;
+    }
+  }
+}
+
+.log-api-details--GET{
+  background-color : var(--background-color-get);
+  border: 1px solid var(--font-color-get);
+}
+.log-api-details--PUT{
+  background-color : var(--background-color-put);
+  border: 1px solid var(--font-color-put);
+}
+.log-api-details--POST{
+  background-color : var(--background-color-post);
+  border: 1px solid var(--font-color-post);
+}
+.log-api-details--DELETE{
+  background-color : var(--background-color-delete);
+  border: 1px solid var(--font-color-delete);
+}

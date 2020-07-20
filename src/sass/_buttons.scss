@@ -1,0 +1,13 @@
+@mixin button-container() {
+  button {
+    margin-right: 5px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.button-container {
+  @include button-container();
+}

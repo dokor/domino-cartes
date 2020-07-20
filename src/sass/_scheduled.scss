@@ -1,0 +1,43 @@
+.scheduled-list {
+
+  .rt-body {
+    background-color: white;
+  }
+
+  .rt-td {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.thread-stats {
+  width: 40%;
+
+  .thread-active {
+    color: #438945;
+    font-weight: bold;
+  }
+
+  .thread-inactive {
+    color: #E40C2B;
+    font-weight: bold;
+  }
+}
+
+.done {
+  color: #b0ada2;
+}
+
+.scheduled {
+  color: #EBA63F;
+}
+
+.ready {
+  color: #3CBCC3;
+}
+
+.running {
+  color: #438945;
+}

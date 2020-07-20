@@ -1,0 +1,23 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "extends": ["airbnb", "plugin:flowtype/recommended"],
+  "plugins": ["flowtype", "compat"],
+  "rules": {
+    "no-use-before-define": 0,
+    "no-unused-vars": 0,
+    "flowtype/define-flow-type": 1,
+    "flowtype/use-flow-type": 1,
+    "compat/compat": 2,
+    "react/sort-comp": 0,
+    "react/default-props-match-prop-types": 0
+  },
+  "env": {
+    "browser": true
+  },
+  "settings": {
+    "polyfills": ["fetch"]
+  }
+}

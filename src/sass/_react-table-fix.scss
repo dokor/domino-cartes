@@ -1,0 +1,11 @@
+.ReactTable {
+  display: block;
+}
+
+.ReactTable .-loading {
+  z-index: -1;
+}
+
+.ReactTable .-loading.-active {
+  z-index: 2;
+}

@@ -1,0 +1,91 @@
+.log-container-details {
+  display: flex;
+  flex-direction: column;
+
+  padding-bottom: 2rem;
+
+
+  .title {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 0;
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .title--GET{
+    background-color : var(--background-color-get-light);
+  }
+  .title--PUT{
+    background-color : var(--background-color-put-light);
+  }
+  .title--POST{
+    background-color : var(--background-color-post-light);
+  }
+  .title--DELETE{
+    background-color : var(--background-color-delete-light);
+  }
+
+  .empty-body {
+    display: flex;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .api-header-title {
+    margin-bottom: 0.5rem;
+    color: var(--font-color-log-content);
+    font-weight: bold;
+  }
+
+  .api-header {
+    display: flex;
+    flex-direction: row;
+
+    .header-key {
+      width: 15rem;
+      color: var(--font-color-log-content);
+    }
+
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+
+  }
+
+  .download {
+    display: flex;
+    justify-content: flex-end;
+    color: var(--font-color-log-content);
+    text-transform: uppercase;
+    width: fit-content;
+    margin: 0.5rem 0;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .bloc-body {
+    padding: 1rem;
+    background: var(--body-bg-color);
+    border: 2px solid var(--border-color-light-grey);
+
+    & > div {
+      height: 100%;
+
+      & > div {
+        height: 100%;
+      }
+    }
+  }
+
+}

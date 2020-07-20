@@ -1,0 +1,27 @@
+.log-api {
+  &>div{
+    margin-bottom: 1rem;
+  }
+
+  .content{
+    &>div{
+      margin: 1rem 0 1rem 0;
+    }
+
+  }
+
+  .no-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #E74C3C;
+    border-radius: 3px;
+    color: #E74C3C;
+    background: #FADBD8;
+    padding: 1rem;
+
+  }
+
+
+}

@@ -1,0 +1,37 @@
+$base-font-size: 14px;
+
+$left-menu-nav-width: 16rem;
+
+/* bootstrap override */
+$enable-flex: true;
+
+$brand-primary: #1469b3;
+
+$gray-darker: #2a2d2f;
+$gray-dark: #373a3c;
+$gray: #55595c;
+$gray-light: #818a91;
+$gray-lighter: #eceeef;
+$gray-lightest: #f7f7f9;
+
+$red-danger: #d9534f;
+
+$nav-tabs-active-link-hover-bg: #ffffff;
+
+$body-bg: $gray-lighter;
+
+$headings-font-weight: 300;
+
+$font-size-h1: 1.6rem;
+$font-size-h2: 1.3rem;
+$font-size-h3: 1.15rem;
+$font-size-h4: 1.1rem;
+$font-size-h5: 1.05rem;
+$font-size-h6: 1rem;
+
+$log-trace: #3CBCC3;
+$log-info: #0275d8;
+$log-debug: #5cb85c;
+$log-error: #d9534f;
+$log-warn: #f0ad4e;
+$log-off: #777777;
