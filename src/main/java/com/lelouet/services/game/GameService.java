@@ -63,7 +63,7 @@ public class GameService {
     }
 
     public void playAITurn(int playerId) {
-        Player currentPlayer = game.getPlayers().get(playerId);
+        Player currentPlayer = game.getPlayer(playerId);
         for (Card card : currentPlayer.getHand()) {
             if (canPlayCard(card)) {
                 playTurn(playerId, card);
@@ -157,6 +157,7 @@ public class GameService {
                 game.getColumnClubs().add(card);
                 break;
         }
+        game.orderColumnsCards();
     }
 
     private void initializeColumns() {

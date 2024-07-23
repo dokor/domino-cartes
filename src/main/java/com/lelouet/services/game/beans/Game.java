@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
@@ -46,6 +47,37 @@ public class Game {
         }
     }
 
+    public void orderColumnsCards() {
+        this.setColumnClubs(orderColumnCards(this.getColumnClubs()));
+        this.setColumnDiamonds(orderColumnCards(this.getColumnDiamonds()));
+        this.setColumnHearts(orderColumnCards(this.getColumnHearts()));
+        this.setColumnSpades(orderColumnCards(this.getColumnSpades()));
+    }
+
+    private List<Card> orderColumnCards(List<Card> cards) {
+        return cards
+            .stream()
+            .sorted((o1, o2) -> {
+                if (o1.getSuit().getOrder() > o2.getSuit().getOrder()) {
+                    return -1;
+                } else if (o1.getSuit().getOrder() < o2.getSuit().getOrder()) {
+                    return 1;
+                } else {
+                    if (o1.getRank() > o2.getRank()) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                }
+            })
+            .collect(Collectors.toList());
+    }
+
+    public Player getPlayer(int playerId) {
+        return this.players.stream().filter(player -> player.getId() == playerId).findFirst()
+            .orElseThrow();
+    }
+
     @Override
     public String toString() {
         return "Game{" +
@@ -57,4 +89,6 @@ public class Game {
             ", \ncurrentPlayerIndex=" + currentPlayerIndex +
             '}';
     }
+
+
 }
