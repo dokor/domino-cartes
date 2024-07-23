@@ -4,30 +4,34 @@ import com.google.inject.Singleton;
 import com.lelouet.services.game.beans.Card;
 import com.lelouet.services.game.beans.Player;
 import com.lelouet.services.game.enums.Suit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
 @Singleton
 public class AloneGameTest {
+    private static final Logger logger = LoggerFactory.getLogger(AloneGameTest.class);
+
     public static void main(String[] args) {
         GameService gameService = new GameService();
         gameService.startGame();
 
         // Vérifier que les 7 sont bien dans les colonnes
-        System.out.println("Initial game state:");
-        System.out.println(gameService.getGameState());
+        logger.info("Initial game state:");
+        logger.info(gameService.getGameState().toString());
 
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             Player currentPlayer = gameService.getGameState().getPlayers().get(gameService.getGameState().getCurrentPlayerIndex());
-            System.out.println("Current game state:");
-            System.out.println(gameService.getGameState());
+            logger.info("Current playergame state:");
+            logger.info(gameService.getGameState().toString());
 
             if (currentPlayer.getId() == 0) {
                 // Tour du joueur humain
-                System.out.println(currentPlayer.getName() + " hand: " + currentPlayer.getHand());
-                System.out.println("Enter the suit and rank of the card you want to play (e.g., SPADES 8), or 'pass' to pass:");
+                logger.info(currentPlayer.getName() + " hand: " + currentPlayer.getHand());
+                logger.info("Enter the suit and rank of the card you want to play (e.g., SPADES 8), or 'pass' to pass:");
 
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("pass")) {
@@ -40,7 +44,7 @@ public class AloneGameTest {
                     if (cardToPlay != null) {
                         gameService.playTurn(0, cardToPlay);
                     } else {
-                        System.out.println("Invalid card. Try again.");
+                        logger.info("Invalid card. Try again.");
                     }
                 }
             } else {
@@ -50,10 +54,10 @@ public class AloneGameTest {
 
             // Vérifier les conditions de fin de jeu
             if (gameService.getGameState().getPlayers().size() == 1) {
-                System.out.println("Game over! " + gameService.getGameState().getPlayers().get(0).getName() + " wins!");
+                logger.info("Game over! " + gameService.getGameState().getPlayers().get(0).getName() + " wins!");
                 break;
             } else if (gameService.getGameState() == null) {
-                System.out.println("Game over! All players have been eliminated.");
+                logger.info("Game over! All players have been eliminated.");
                 break;
             }
         }
