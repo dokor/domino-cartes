@@ -21,7 +21,7 @@ public class GameService {
         initializeDeck();
         initializeColumns();
         dealCards();
-        game.setCurrentPlayerIndex(0);
+        game.setCurrentPlayerIndex(0); // TODO Changer pour que le premier soit aléatoire
     }
 
     public Game getGameState() {
@@ -51,11 +51,11 @@ public class GameService {
     }
 
     public void passTurn(int playerId) {
-        Player currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex());
+        Player currentPlayer = game.getPlayer(playerId);
         if (currentPlayer.getId() == playerId) {
             currentPlayer.setPassCount(currentPlayer.getPassCount() + 1);
-            if (currentPlayer.getPassCount() >= 3) {
-                eliminatePlayer(game.getCurrentPlayerIndex());
+            if (currentPlayer.getPassCount() > 3) { // TODO Passer en conf le nombre de passage avant l'élimination
+                eliminatePlayer(playerId);
             } else {
                 nextPlayer();
             }
@@ -74,6 +74,8 @@ public class GameService {
     }
 
     private boolean canPlayCard(Card card) {
+        // TODO : vérifier que les cartes sont posables en partant du 7 - ou +
+        // FIXME : Quand quelqu'un meurt, ses cartes sont prises en compte meme si elle se suivent pas.
         List<Card> column;
         switch (card.getSuit()) {
             case SPADES:
@@ -173,11 +175,11 @@ public class GameService {
     }
 
     private void eliminatePlayer(int playerIndex) {
-        Player player = game.getPlayers().get(playerIndex);
+        Player player = game.getPlayer(playerIndex);
         for (Card card : player.getHand()) {
             addCardToColumn(card);
         }
-        game.getPlayers().remove(playerIndex);
+        game.getPlayers().remove(player);
         if (game.getPlayers().isEmpty()) {
             game = null;
         } else {

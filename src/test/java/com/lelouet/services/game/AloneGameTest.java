@@ -25,10 +25,11 @@ public class AloneGameTest {
 
         while (true) {
             Player currentPlayer = gameService.getGameState().getPlayers().get(gameService.getGameState().getCurrentPlayerIndex());
-            logger.info("Current playergame state:");
-            logger.info(gameService.getGameState().toString());
+            logger.info("--------------------------------");
+            logger.debug(gameService.getGameState().toString());
 
             if (currentPlayer.getId() == 0) {
+                logger.info(gameService.getGameState().toString());
                 // Tour du joueur humain
                 logger.info(currentPlayer.getName() + " hand: " + currentPlayer.getHand());
                 logger.info("Enter the suit and rank of the card you want to play (e.g., SPADES 8), or 'pass' to pass:");
@@ -44,7 +45,7 @@ public class AloneGameTest {
                     if (cardToPlay != null) {
                         gameService.playTurn(0, cardToPlay);
                     } else {
-                        logger.info("Invalid card. Try again.");
+                        logger.warn("Invalid card. Try again.");
                     }
                 }
             } else {
@@ -54,10 +55,10 @@ public class AloneGameTest {
 
             // Vérifier les conditions de fin de jeu
             if (gameService.getGameState().getPlayers().size() == 1) {
-                logger.info("Game over! " + gameService.getGameState().getPlayers().get(0).getName() + " wins!");
+                logger.warn("Game over! " + gameService.getGameState().getPlayers().get(0).getName() + " wins!");
                 break;
             } else if (gameService.getGameState() == null) {
-                logger.info("Game over! All players have been eliminated.");
+                logger.warn("Game over! All players have been eliminated.");
                 break;
             }
         }
