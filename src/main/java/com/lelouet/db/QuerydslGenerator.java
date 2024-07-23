@@ -1,4 +1,4 @@
-package com.coreoz.db;
+package com.lelouet.db;
 
 import java.io.File;
 import java.sql.SQLException;

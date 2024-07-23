@@ -1,4 +1,4 @@
-package com.coreoz.webservices.api.data;
+package com.lelouet.webservices.api.data;
 
 public class Test {
 

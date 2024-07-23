@@ -1,4 +1,4 @@
-package com.coreoz.webservices.api;
+package com.lelouet.webservices.api;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -11,8 +11,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.coreoz.plume.jersey.security.permission.PublicApi;
 
-import com.coreoz.services.configuration.ConfigurationService;
-import com.coreoz.webservices.api.data.Test;
+import com.lelouet.services.configuration.ConfigurationService;
+import com.lelouet.webservices.api.data.Test;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Path("/example")

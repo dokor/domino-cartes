@@ -1,13 +1,12 @@
-package com.coreoz;
+package com.lelouet;
 
 import java.io.IOException;
 
+import com.lelouet.guice.ApplicationModule;
+import com.lelouet.jersey.GrizzlySetup;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.coreoz.guice.ApplicationModule;
-import com.coreoz.jersey.GrizzlySetup;
 
 import com.coreoz.plume.jersey.guice.JerseyGuiceFeature;
 import com.google.inject.Guice;

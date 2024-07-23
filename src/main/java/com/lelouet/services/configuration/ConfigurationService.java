@@ -1,4 +1,4 @@
-package com.coreoz.services.configuration;
+package com.lelouet.services.configuration;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

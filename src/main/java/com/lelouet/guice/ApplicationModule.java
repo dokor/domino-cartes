@@ -1,8 +1,7 @@
-package com.coreoz.guice;
+package com.lelouet.guice;
 
+import com.lelouet.jersey.JerseyConfigProvider;
 import org.glassfish.jersey.server.ResourceConfig;
-
-import com.coreoz.jersey.JerseyConfigProvider;
 
 import com.coreoz.plume.conf.guice.GuiceConfModule;
 import com.coreoz.plume.jersey.guice.GuiceJacksonModule;

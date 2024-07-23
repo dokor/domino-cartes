@@ -1,4 +1,4 @@
-package com.coreoz.jersey;
+package com.lelouet.jersey;
 
 import java.io.IOException;
 import java.net.URI;

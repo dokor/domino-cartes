@@ -1,4 +1,4 @@
-package com.coreoz.jersey;
+package com.lelouet.jersey;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

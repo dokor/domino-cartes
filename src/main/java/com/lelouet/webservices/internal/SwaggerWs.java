@@ -1,4 +1,4 @@
-package com.coreoz.webservices.internal;
+package com.lelouet.webservices.internal;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -13,7 +13,7 @@ import com.coreoz.plume.jersey.security.basic.BasicAuthenticator;
 import com.coreoz.plume.jersey.security.permission.PublicApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import com.coreoz.services.configuration.ConfigurationService;
+import com.lelouet.services.configuration.ConfigurationService;
 
 import io.swagger.v3.core.util.Yaml;
 import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;

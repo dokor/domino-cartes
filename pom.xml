@@ -44,7 +44,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.coreoz.WebApplication</mainClass>
+							<mainClass>com.lelouet.WebApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
