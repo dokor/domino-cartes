@@ -19,8 +19,8 @@ public class GameService {
     public void startGame() {
         game = new Game();
         initializeDeck();
-        dealCards();
         initializeColumns();
+        dealCards();
         game.setCurrentPlayerIndex(0);
     }
 
@@ -30,12 +30,24 @@ public class GameService {
 
     public void playTurn(int playerId, Card card) {
         Player currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex());
-        if (currentPlayer.getId() == playerId && currentPlayer.getHand().contains(card)) {
-            addCardToColumn(card);
-            currentPlayer.getHand().remove(card);
-            currentPlayer.setPassCount(0);
-            nextPlayer();
+        if (currentPlayer.getId() == playerId && currentPlayer.getHand().contains(card) && (verifyCardValid(card))) {
+                addCardToColumn(card);
+                currentPlayer.getHand().remove(card);
+                nextPlayer();
         }
+    }
+
+    private boolean verifyCardValid(Card card) {
+        List<Card> cardsInColumn = game.getColumnsOfSuitCard(card);
+        for (Card cardColumn : cardsInColumn) {
+            if(
+                (cardColumn.getRank() == card.getRank() - 1)
+                ||  (cardColumn.getRank() == card.getRank() + 1)
+            ){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void passTurn(int playerId) {
@@ -65,16 +77,16 @@ public class GameService {
         List<Card> column;
         switch (card.getSuit()) {
             case SPADES:
-                column = game.getColumn1();
+                column = game.getColumnSpades();
                 break;
             case HEARTS:
-                column = game.getColumn2();
+                column = game.getColumnHearts();
                 break;
             case DIAMONDS:
-                column = game.getColumn3();
+                column = game.getColumnDiamonds();
                 break;
             case CLUBS:
-                column = game.getColumn4();
+                column = game.getColumnClubs();
                 break;
             default:
                 return false;
@@ -108,6 +120,13 @@ public class GameService {
             players.get(i % playerCount).getHand().add(deck.get(i));
         }
         removeSevensFromHands();
+        orderCards();
+    }
+
+    private void orderCards() {
+        for (Player player : game.getPlayers()) {
+            player.orderCards();
+        }
     }
 
     private void removeSevensFromHands() {
@@ -126,25 +145,25 @@ public class GameService {
     private void addCardToColumn(Card card) {
         switch (card.getSuit()) {
             case SPADES:
-                game.getColumn1().add(card);
+                game.getColumnSpades().add(card);
                 break;
             case HEARTS:
-                game.getColumn2().add(card);
+                game.getColumnHearts().add(card);
                 break;
             case DIAMONDS:
-                game.getColumn3().add(card);
+                game.getColumnDiamonds().add(card);
                 break;
             case CLUBS:
-                game.getColumn4().add(card);
+                game.getColumnClubs().add(card);
                 break;
         }
     }
 
     private void initializeColumns() {
-        game.setColumn1(new ArrayList<>());
-        game.setColumn2(new ArrayList<>());
-        game.setColumn3(new ArrayList<>());
-        game.setColumn4(new ArrayList<>());
+        game.setColumnSpades(new ArrayList<>());
+        game.setColumnHearts(new ArrayList<>());
+        game.setColumnDiamonds(new ArrayList<>());
+        game.setColumnClubs(new ArrayList<>());
     }
 
     private void nextPlayer() {

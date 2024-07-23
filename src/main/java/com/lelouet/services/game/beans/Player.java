@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Setter
@@ -28,8 +29,28 @@ public class Player {
         return "Player{" +
             "id=" + id +
             ", name='" + name + '\'' +
-            ", hand=" + hand +
+            ", nbrCards=" + this.hand.size() +
             ", passCount=" + passCount +
+            ", hand=" + hand +
             "}\n";
+    }
+
+    public void orderCards() {
+        this.hand = this.hand
+            .stream()
+            .sorted((o1, o2) -> {
+                if (o1.getSuit().getOrder() > o2.getSuit().getOrder()) {
+                    return -1;
+                } else if (o1.getSuit().getOrder() < o2.getSuit().getOrder()) {
+                    return 1;
+                } else {
+                    if (o1.getRank() > o2.getRank()) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                }
+            })
+            .collect(Collectors.toList());
     }
 }
