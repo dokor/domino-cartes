@@ -55,6 +55,7 @@ public class Game {
     }
 
     private List<Card> orderColumnCards(List<Card> cards) {
+        // TODO : dédupliquer la logique avec celle dans Player
         return cards
             .stream()
             .sorted((o1, o2) -> {
