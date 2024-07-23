@@ -15,53 +15,64 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.coreoz.services.configuration.ConfigurationService;
 
-import io.swagger.jaxrs.config.BeanConfig;
-import io.swagger.models.Swagger;
-import io.swagger.util.Json;
+import io.swagger.v3.core.util.Yaml;
+import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
+import io.swagger.v3.oas.integration.SwaggerConfiguration;
+import io.swagger.v3.oas.integration.api.OpenApiContext;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.servers.Server;
+import lombok.SneakyThrows;
+
+import java.util.List;
+import java.util.Set;
 
 @Path("/swagger")
 @PublicApi
 @Singleton
 public class SwaggerWs {
 
-	private final String swaggerDefinition;
-	private final BasicAuthenticator<String> basicAuthenticator;
+    private final String swaggerDefinition;
+    private final BasicAuthenticator<String> basicAuthenticator;
 
-	@Inject
-	public SwaggerWs(ConfigurationService configurationService) {
-		BeanConfig beanConfig = new BeanConfig();
-		beanConfig.setResourcePackage("com.coreoz.webservices.api");
-		beanConfig.setBasePath("/api");
-		beanConfig.setTitle("API domino-cartes");
-		// this is not only a setter, it also starts the Swagger classes analyzing process 
-		beanConfig.setScan(true);
+    @Inject
+    @SneakyThrows
+    public SwaggerWs(ConfigurationService configurationService) {
+        // Basic configuration
+        SwaggerConfiguration openApiConfig = new SwaggerConfiguration()
+            .resourcePackages(Set.of("com.coreoz.webservices.api")) // The package will be different for your project
+            .sortOutput(true)
+            .openAPI(new OpenAPI().servers(List.of(
+                new Server()
+                    .url("/api")
+                    .description("API plume-demo-admin") // The title is different for your project
+            )));
 
-		// the swagger object can be changed to add security definition
-		// or to alter the generated mapping
-		Swagger swagger = beanConfig.getSwagger();
+        // Generation of the OpenApi object
+        OpenApiContext context = new JaxrsOpenApiContextBuilder<>()
+            .openApiConfiguration(openApiConfig)
+            .buildContext(true);
+        // the OpenAPI object can be changed to add security definition
+        // or to alter the generated mapping
+        OpenAPI openApi = context.read();
 
-		// serialization of the Swagger definition
-		try {
-			this.swaggerDefinition = Json.mapper().writeValueAsString(swagger);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
+        // serialization of the Swagger definition
+        this.swaggerDefinition = Yaml.mapper().writeValueAsString(openApi);
 
-		// require authentication to access the API documentation
-		this.basicAuthenticator = BasicAuthenticator.fromSingleCredentials(
-			configurationService.swaggerAccessUsername(),
-			configurationService.swaggerAccessPassword(),
-			"API domino-cartes"
-		);
-	}
+        // require authentication to access the API documentation
+        this.basicAuthenticator = BasicAuthenticator.fromSingleCredentials(
+            configurationService.swaggerAccessUsername(),
+            configurationService.swaggerAccessPassword(),
+            "API domino-cartes"
+        );
+    }
 
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	public String get(@Context ContainerRequestContext requestContext) throws JsonProcessingException {
-		basicAuthenticator.requireAuthentication(requestContext);
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public String get(@Context ContainerRequestContext requestContext) throws JsonProcessingException {
+        basicAuthenticator.requireAuthentication(requestContext);
 
-		return swaggerDefinition;
-	}
+        return swaggerDefinition;
+    }
 
 }
 

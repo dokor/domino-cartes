@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.coreoz</groupId>
+	<groupId>fr.lelouet</groupId>
 	<artifactId>domino-cartes</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -15,7 +15,7 @@
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 
-		<plume-dependencies.version>2.0.0</plume-dependencies.version>
+		<plume-dependencies.version>4.2.3</plume-dependencies.version>
 	</properties>
 
 	<build>
@@ -53,7 +53,7 @@
 			<plugin>
 				<groupId>com.google.code.play2-maven-plugin</groupId>
 				<artifactId>play2-maven-plugin</artifactId>
-				<version>1.0.0-beta6</version>
+				<version>1.0.0-rc5</version>
 				<executions>
 					<execution>
 						<goals>
@@ -124,42 +124,15 @@
 			<artifactId>jersey-container-grizzly2-http</artifactId>
 		</dependency>
 
-		<!-- jdk9+ non included Java libraries required for Jersey -->
 		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-impl</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.activation</groupId>
-			<artifactId>javax.activation-api</artifactId>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-mysql</artifactId>
 		</dependency>
 
 		<!-- swagger -->
 		<dependency>
-			<groupId>io.swagger</groupId>
-			<artifactId>swagger-jaxrs</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>joda-time</artifactId>
-					<groupId>joda-time</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.ws.rs</groupId>
-					<artifactId>jsr311-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>swagger-ui</artifactId>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-jaxrs2</artifactId>
 		</dependency>
 
 		<dependency>
@@ -185,7 +158,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.coreoz</groupId>
-				<artifactId>plume-dependencies</artifactId>
+				<artifactId>plume-framework-dependencies</artifactId>
 				<version>${plume-dependencies.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
