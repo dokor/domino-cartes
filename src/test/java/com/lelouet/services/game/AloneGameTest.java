@@ -39,7 +39,7 @@ public class AloneGameTest {
                     gameService.passTurn(0);
                 } else {
                     String[] parts = input.split(" ");
-                    Suit suit = Suit.valueOf(parts[0].toUpperCase());
+                    Suit suit = Suit.valueOf(parts[0].toUpperCase()); //todo : vérifier l'input user
                     int rank = Integer.parseInt(parts[1]);
                     Card cardToPlay = findCardInHand(currentPlayer, suit, rank);
                     if (cardToPlay != null) {
@@ -55,11 +55,18 @@ public class AloneGameTest {
 
             // Vérifier les conditions de fin de jeu
             if (gameService.getGameState().getPlayers().size() == 1) {
-                logger.warn("Game over! " + gameService.getGameState().getPlayers().get(0).getName() + " wins!");
+                logger.warn("Game over! Only one man standing, " + gameService.getGameState().getPlayers().get(0).getName() + " wins!");
                 break;
             } else if (gameService.getGameState() == null) {
                 logger.warn("Game over! All players have been eliminated.");
                 break;
+            } else if (gameService.getGameState().isEmptyHands()){
+                for(Player player : gameService.getGameState().getPlayers()) {
+                    if(player.isEmptyHand()){
+                        logger.warn("Game over! A player have no more cards" + player.getName() + " wins!");
+                        break;
+                    }
+                }
             }
         }
 
@@ -69,9 +76,13 @@ public class AloneGameTest {
     private static Card findCardInHand(Player player, Suit suit, int rank) {
         for (Card card : player.getHand()) {
             if (card.getSuit() == suit && card.getRank() == rank) {
+                logger.debug("La carte {}{} existe dans la main du joueur {}",
+                        rank, suit.name(), player.getName());
                 return card;
             }
         }
+        logger.warn("La carte demandée {}{}, n'existe pas dans la main du joueur {}",
+                rank, suit.name(), player.getName());
         return null;
     }
 }
