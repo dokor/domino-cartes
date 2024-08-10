@@ -54,8 +54,9 @@ public class AloneGameTest {
             }
 
             // Vérifier les conditions de fin de jeu
+            // TODO : Sortir les conditions de victoires dans Game + optimiser le traitement pour afficher le vainqueur et quitter la partie
             if (gameService.getGameState().getPlayers().size() == 1) {
-                logger.warn("Game over! Only one man standing, " + gameService.getGameState().getPlayers().get(0).getName() + " wins!");
+                logger.warn("Game over! Only one man standing, {} wins!", gameService.getGameState().getPlayers().get(0).getName());
                 break;
             } else if (gameService.getGameState() == null) {
                 logger.warn("Game over! All players have been eliminated.");
@@ -63,10 +64,11 @@ public class AloneGameTest {
             } else if (gameService.getGameState().isEmptyHands()){
                 for(Player player : gameService.getGameState().getPlayers()) {
                     if(player.isEmptyHand()){
-                        logger.warn("Game over! A player have no more cards " + player.getName() + " wins!");
+                        logger.warn("Game over! A player have no more cards {} wins!", player.getName());
                         break;
                     }
                 }
+                break;
             }
         }
 
