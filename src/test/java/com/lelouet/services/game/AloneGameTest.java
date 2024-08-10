@@ -63,7 +63,7 @@ public class AloneGameTest {
             } else if (gameService.getGameState().isEmptyHands()){
                 for(Player player : gameService.getGameState().getPlayers()) {
                     if(player.isEmptyHand()){
-                        logger.warn("Game over! A player have no more cards" + player.getName() + " wins!");
+                        logger.warn("Game over! A player have no more cards " + player.getName() + " wins!");
                         break;
                     }
                 }
