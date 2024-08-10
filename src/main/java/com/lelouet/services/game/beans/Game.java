@@ -79,6 +79,11 @@ public class Game {
             .orElseThrow();
     }
 
+    public boolean isEmptyHands(){
+        return this.players.stream()
+                .anyMatch(Player::isEmptyHand);
+    }
+
     @Override
     public String toString() {
         return "Game{" +

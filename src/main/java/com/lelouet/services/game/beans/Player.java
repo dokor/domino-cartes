@@ -53,4 +53,8 @@ public class Player {
             })
             .collect(Collectors.toList());
     }
+
+    public boolean isEmptyHand(){
+        return this.hand.isEmpty();
+    }
 }
