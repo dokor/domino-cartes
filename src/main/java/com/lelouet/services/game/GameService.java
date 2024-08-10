@@ -5,6 +5,8 @@ import com.lelouet.services.game.beans.Game;
 import com.lelouet.services.game.beans.Player;
 import com.lelouet.services.game.enums.Suit;
 import com.google.inject.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,9 +16,13 @@ import java.util.List;
 @Singleton
 public class GameService {
 
+    private static final Logger logger = LoggerFactory.getLogger(GameService.class);
+
+
     private Game game;
 
     public void startGame() {
+        logger.info("Starting game");
         game = new Game();
         initializeDeck();
         initializeColumns();
@@ -104,17 +110,23 @@ public class GameService {
     }
 
     private void initializeDeck() {
+        logger.debug("Initalisation du deck");
         List<Card> deck = new ArrayList<>();
         for (Suit suit : Suit.values()) {
             for (int rank = 1; rank <= 13; rank++) {
                 deck.add(new Card(suit, rank));
             }
         }
+        logger.debug("{} cartes ajoutées au deck", deck.size());
         Collections.shuffle(deck);
+        logger.debug("Melange des cartes");
+        Collections.shuffle(deck); // todo : verifier si c'est utile
+        logger.debug("2eme Melange des cartes");
         game.setDeck(deck);
     }
 
     private void dealCards() {
+        logger.debug("Distribution des cartes");
         List<Card> deck = game.getDeck();
         List<Player> players = game.getPlayers();
         int playerCount = players.size();
@@ -132,6 +144,7 @@ public class GameService {
     }
 
     private void removeSevensFromHands() {
+        logger.debug("Pour chaque joueurs, retrait des 7");
         for (Player player : game.getPlayers()) {
             Iterator<Card> iterator = player.getHand().iterator();
             while (iterator.hasNext()) {
@@ -139,6 +152,9 @@ public class GameService {
                 if (card.getRank() == 7) {
                     addCardToColumn(card);
                     iterator.remove();
+                    logger.debug("Carte {}{} retirée de la main du joueur {}",
+                            card.getRank(), card.getSuit().name(), player.getName()
+                    );
                 }
             }
         }
