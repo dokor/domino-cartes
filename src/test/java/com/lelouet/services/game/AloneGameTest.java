@@ -12,6 +12,7 @@ import java.util.Scanner;
 @Singleton
 public class AloneGameTest {
     private static final Logger logger = LoggerFactory.getLogger(AloneGameTest.class);
+    private static GameService gameService;
 
     public static void main(String[] args) {
         GameService gameService = new GameService();
@@ -23,8 +24,10 @@ public class AloneGameTest {
 
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            Player currentPlayer = gameService.getGameState().getPlayers().get(gameService.getGameState().getCurrentPlayerIndex());
+        while (!gameService.verifyGameOver()) {
+            Player currentPlayer = gameService.getGameState()
+                    .getPlayers()
+                    .get(gameService.getGameState().getCurrentPlayerIndex());
             logger.info("--------------------------------");
             logger.debug(gameService.getGameState().toString());
 
@@ -32,7 +35,7 @@ public class AloneGameTest {
                 logger.info(gameService.getGameState().toString());
                 // Tour du joueur humain
                 logger.info(currentPlayer.getName() + " hand: " + currentPlayer.getHand());
-                logger.info("Enter the suit and rank of the card you want to play (e.g., SPADES 8), or 'pass' to pass:");
+                logger.info("Enter the card you want to play (e.g., SPADES 8), or 'pass' to pass your turn :");
 
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("pass")) {
@@ -51,24 +54,6 @@ public class AloneGameTest {
             } else {
                 // Tour des IA
                 gameService.playAITurn(currentPlayer.getId());
-            }
-
-            // Vérifier les conditions de fin de jeu
-            // TODO : Sortir les conditions de victoires dans Game + optimiser le traitement pour afficher le vainqueur et quitter la partie
-            if (gameService.getGameState().getPlayers().size() == 1) {
-                logger.warn("Game over! Only one man standing, {} wins!", gameService.getGameState().getPlayers().get(0).getName());
-                break;
-            } else if (gameService.getGameState() == null) {
-                logger.warn("Game over! All players have been eliminated.");
-                break;
-            } else if (gameService.getGameState().isEmptyHands()){
-                for(Player player : gameService.getGameState().getPlayers()) {
-                    if(player.isEmptyHand()){
-                        logger.warn("Game over! A player have no more cards {} wins!", player.getName());
-                        break;
-                    }
-                }
-                break;
             }
         }
 

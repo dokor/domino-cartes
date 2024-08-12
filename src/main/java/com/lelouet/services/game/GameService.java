@@ -204,4 +204,22 @@ public class GameService {
             game.setCurrentPlayerIndex(playerIndex % game.getPlayers().size());
         }
     }
+
+    public boolean verifyGameOver(){
+        if (this.getGameState().getPlayers().size() == 1) {
+            logger.warn("Game over! Only one man standing, {} wins!", this.getGameState().getPlayers().get(0).getName());
+            return true;
+        } else if (this.getGameState() == null) {
+            logger.warn("Game over! All players have been eliminated.");
+            return true;
+        } else if (this.getGameState().isEmptyHands()){
+            for(Player player : this.getGameState().getPlayers()) {
+                if(player.isEmptyHand()){
+                    logger.warn("Game over! A player have no more cards {} wins!", player.getName());
+                    return true; // Permet d'économiser le parcours du reste des joueurs
+                }
+            }
+        }
+        return false;
+    }
 }
