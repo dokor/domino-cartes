@@ -6,10 +6,10 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum CARD_STATUT {
-    DEFAULT(true),
+    SHOW(true),
 
-    DEAD(false)
+    HIDE(false)
     ;
 
-    private final boolean canBeUsed;
+    private final boolean canBeUsedForSuite;
 }
