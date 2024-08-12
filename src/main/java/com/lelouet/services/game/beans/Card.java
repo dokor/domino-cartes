@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Card {
     private Suit suit;
     private int rank;
-    private CARD_STATUT statut;
+    private CARD_STATUT statut = CARD_STATUT.SHOW; // fixme : gérer l'init default dans un constructeur
     //private CardLabel label;
 
     @Override

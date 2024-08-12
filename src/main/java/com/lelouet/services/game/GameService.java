@@ -3,6 +3,7 @@ package com.lelouet.services.game;
 import com.lelouet.services.game.beans.Card;
 import com.lelouet.services.game.beans.Game;
 import com.lelouet.services.game.beans.Player;
+import com.lelouet.services.game.enums.CARD_STATUT;
 import com.lelouet.services.game.enums.Suit;
 import com.google.inject.Singleton;
 import org.slf4j.Logger;
@@ -114,13 +115,13 @@ public class GameService {
         List<Card> deck = new ArrayList<>();
         for (Suit suit : Suit.values()) {
             for (int rank = 1; rank <= 13; rank++) {
-                deck.add(new Card(suit, rank));
+                deck.add(new Card(suit, rank, CARD_STATUT.SHOW));
             }
         }
         logger.debug("{} cartes ajoutées au deck", deck.size());
         Collections.shuffle(deck);
         logger.debug("Melange des cartes");
-        Collections.shuffle(deck); // todo : verifier si c'est utile
+        Collections.shuffle(deck); // todo : verifier si c'est utile de mélanger deux fois
         logger.debug("2eme Melange des cartes");
         game.setDeck(deck);
     }
@@ -193,6 +194,7 @@ public class GameService {
     private void eliminatePlayer(int playerIndex) {
         Player player = game.getPlayer(playerIndex);
         for (Card card : player.getHand()) {
+            card.setStatut(CARD_STATUT.HIDE);
             addCardToColumn(card);
         }
         game.getPlayers().remove(player);
